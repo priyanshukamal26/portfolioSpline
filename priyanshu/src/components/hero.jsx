@@ -1,0 +1,81 @@
+import React from 'react';
+import Spline from '@splinetool/react-spline';
+import { ArrowRight } from 'lucide-react';
+import RotatingText from './RotatingText';
+import { WordRotate } from "@/components/ui/word-rotate";
+
+/**
+ * A modern, minimal hero section component.
+ */
+export default function Hero() {
+  const skills = ['Full Stack & AI Engineer', 'Next.js & React Architect', 'LLM & Systems Builder', 'Applied AI Engineer'];
+  const greetings = ["Hello", "Hola", "Ciao", "Namaste"];
+
+  return (
+    <section className="relative w-full h-screen overflow-hidden">
+      {/* 1. Spline Background */}
+      <div className="absolute inset-0 z-10 w-full h-full">
+        <Spline
+          scene="https://prod.spline.design/9xuF1oRA5poA131s/scene.splinecode"
+          aria-label="Interactive 3D animation"
+        />
+      </div>
+
+      {/* 2. Overlay Content */}
+      {/* Content is aligned to the center */}
+      <div className="relative z-20 flex items-center justify-center w-full h-full p-4 text-center bg-black/20 pointer-events-none sm:p-12 md:p-16">
+        <div className="max-w-4xl px-4 pointer-events-auto">
+          <div className="flex flex-wrap items-center justify-center gap-x-3 text-3xl sm:text-5xl md:text-6xl font-bold font-pixel text-white [text-shadow:_0_3px_5px_rgb(0_0_0_/_40%)] leading-tight">
+            <span className="inline-block">
+              <WordRotate words={greetings} className="inline-block text-yellow-300" />
+            </span>
+            <span className="whitespace-nowrap">{", I'm Priyanshu Kamal"}</span>
+          </div>
+          
+          {/* Rotating Text for Skills */}
+          <div className="flex justify-center mt-4">
+            <RotatingText
+              texts={skills}
+              mainClassName="text-lg text-white/90 md:text-xl lg:text-2xl [text-shadow:_0_2px_4px_rgb(0_0_0_/_40%)]"
+              splitLevelClassName="overflow-hidden"
+              staggerDuration={0.08}
+              staggerFrom="last"
+            />
+          </div>
+        
+          {/* Call-to-action buttons */}
+          <div className="flex justify-center gap-4 mt-8">
+            <a
+              href="#projects"
+              onClick={e => {
+                e.preventDefault();
+                setTimeout(() => {
+                  const el = document.getElementById('projects');
+                  if (el) {
+                    el.scrollIntoView({
+                      behavior: 'smooth',
+                      block: 'start',
+                      inline: 'nearest'
+                    });
+                  }
+                }, 100);
+              }}
+              className="inline-flex items-center gap-2 px-6 py-3 text-base font-semibold text-black transition-all duration-300 bg-white rounded-lg shadow-lg pointer-events-auto hover:bg-gray-200 hover:scale-105"
+            >
+              View My Work
+              <ArrowRight size={20} />
+            </a>
+            <a
+              href="https://drive.google.com/file/d/1o2ocEp8MmN3Zu_WTdXeAqUxhl98uSP-H/view?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 text-base font-semibold text-white transition-all duration-300 bg-transparent border border-white rounded-lg shadow-lg pointer-events-auto hover:bg-white hover:text-white hover:scale-105"
+            >
+              View Resume
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
